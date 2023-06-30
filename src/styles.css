@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  position: relative;
+}
+
+.nav-item .active {
+  color: white;
+  background-color: #767676;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.select-question input:checked~label {
+  color: #639cfd;
+  border-left: 2px solid #639cfd;
+}
+
+
+.text-img{
+  background-image: url("https://cdn.wallpapersafari.com/16/69/rcj6Cz.jpg");
+  background-clip: text;
+  background-size: cover;
+  -webkit-background-clip: text;
+  color:transparent;
+  /* line-height: .0; */
+}
