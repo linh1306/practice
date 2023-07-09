@@ -2,6 +2,7 @@
   "name": "react",
   "version": "1.0.0",
   "description": "React example starter project",
+  "homepage": "https://linh1306.github.io/practice",
   "keywords": [
     "react",
     "starter"
@@ -25,6 +26,7 @@
     "tw-elements": "^1.0.0-beta2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/runtime": "7.13.8",
     "tailwindcss": "^3.3.2",
     "typescript": "4.1.3"
