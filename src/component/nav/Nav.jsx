@@ -2,32 +2,31 @@ import { Container } from "react-bootstrap";
 import { Nav, Navbar, NavDropdown, OverlayTrigger, Popover } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { signOutUser } from "../../firebase/login";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { addData, getById, updateData } from "../../firebase/firebase";
 
 function BasicExample() {
   const { user, admin, setUser } = useContext(AuthContext);
   const [showBoxInfoUser, setShowBoxInfoUser] = useState(false);
-  console.log(user)
+  console.log('user', user)
   const handleSigout = async () => {
     await signOutUser();
     setUser(null);
   };
-
-
 
   return (
     <nav className="bg-slate-300 border-gray-200 dark:bg-gray-900 w-full fixed z-50" >
       <div className="relative">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3">
           <div className="flex-1 relative flex flex-wrap items-center justify-between">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <a href="https://flowbite.com/" className="flex items-center ml-2 md:ml-0">
               <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Logo Flowbite" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><font style={{ verticalAlign: 'inherit' }}><font style={{ verticalAlign: 'inherit' }}>chảy máu</font></font></span>
+              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><font style={{ verticalAlign: 'inherit' }}><font style={{ verticalAlign: 'inherit' }}>Store</font></font></span>
             </a>
-            <button data-collapse-toggle="navbar-solid-bg" type="button" className="pr-4 inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-solid-bg" aria-expanded="false">
+            <button data-collapse-toggle="navbar-solid-bg" type="button" className="mr-2 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-solid-bg" aria-expanded="false">
               <span className="sr-only">Open main menu</span>
-              <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
+              <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path></svg>
             </button>
             <div className="hidden absolute top-full w-full md:relative md:block md:w-auto" id="navbar-solid-bg">
               <ul className=" md:mr-4 flex flex-col font-medium rounded-lg bg-gray-200 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">

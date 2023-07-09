@@ -1,7 +1,7 @@
-import { initializeApp } from "firebase/app";
-import {collection,getFirestore,getDocs,addDoc,doc,deleteDoc,where,updateDoc, setDoc,getDoc} from "firebase/firestore";
-import { orderBy, query } from "firebase/firestore";
+import firebase, { initializeApp } from "firebase/app";
+import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc, where, updateDoc, setDoc, getDoc, query } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAs4dCBMDRELYLfBDJGzuS8AsRaW2Q-VeE",
@@ -14,10 +14,17 @@ const firebaseConfig = {
   measurementId: "G-624NFS3T1L"
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+export const storage = getStorage(app);
 export const auth = getAuth(app);
 
+/**
+ * Lấy dữ liệu Firestore
+ * @param {string} href - not null - Đường dẫn tới colection
+ * @param {string} properties - thuộc tính của dữ liệu
+ * @param {string} value - giá trị của thuộc tính để so sánh
+ */
 export const getData = async (href, properties, value) => {
   const docRef =
     properties
@@ -37,15 +44,19 @@ export const getData = async (href, properties, value) => {
     throw error;
   }
 };
-
+/**
+ * Lấy dữ liệu Firestore với id
+ * @param {string} href - not null - Đường dẫn tới colection
+ * @param {string} id - ID tài liệu
+ */
 export const getById = async (href, id) => {
   const documentRef = doc(db, href, id);
-  try{
+  try {
     const documentSnapshot = await getDoc(documentRef);
     const documentData = documentSnapshot.data();
     console.log(documentData)
     return documentData
-  }catch(error){
+  } catch (error) {
     console.error('error by getByid()', error)
     return null
   }
@@ -53,17 +64,17 @@ export const getById = async (href, id) => {
 
 /**
  * Thêm dữ liệu vào Firestore
- * @param {string} href - Đường dẫn tới bộ sưu tập
+ * @param {string} href - not null - Đường dẫn tới colection
  * @param {object} newData - Dữ liệu mới cần thêm
  * @param {string} id - ID tùy chỉnh cho tài liệu
  */
 export const addData = async (href, newData, id) => {
   try {
     const docRef = collection(db, href);
-    if(id && id !== ''){
+    if (id && id !== '') {
       const newDocRef = doc(docRef, id)
-      await setDoc(newDocRef,newData)
-    }else{
+      await setDoc(newDocRef, newData)
+    } else {
       await addDoc(docRef, newData);
     }
   } catch (error) {
@@ -71,7 +82,11 @@ export const addData = async (href, newData, id) => {
     throw error;
   }
 };
-
+/**
+ * xóa dữ liệu trong Firestore
+ * @param {string} href - not null - Đường dẫn tới colection
+ * @param {string} id - not null - ID tùy chỉnh cho tài liệu
+ */
 export const deleteData = async (href, id) => {
   const docRef = doc(db, href, id);
   try {
@@ -81,7 +96,12 @@ export const deleteData = async (href, id) => {
     throw error;
   }
 };
-
+/**
+ * update dữ liệu Firestore
+ * @param {string} href - not null - Đường dẫn tới colection
+ * @param {string} id - not null - ID tùy chỉnh cho tài liệu
+ * @param {object} data - not null - Dữ liệu cần update
+ */
 export const updateData = async (href, id, data) => {
   const docRef = doc(db, href, id);
   try {

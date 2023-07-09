@@ -44,7 +44,7 @@ function List() {
                     <button
                       onClick={() => changeStatus(item)}
                       className={
-                        item[properties] ? "btn btn-primary" : "btn btn-danger"
+                        item[properties] ? "bg-blue-500 text-white px-3 py-1 rounded-md" : "bg-red-500 text-white px-3 py-1 rounded-md"
                       }
                     >
                       {item[properties] ? "active" : "passive"}
